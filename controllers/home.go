@@ -9,8 +9,8 @@ type HomeController struct {
 }
 
 func (c *HomeController) Get() {
-	_, ok := c.Ctx.Input.Session("current-user").(string)
-	if ok {
+	u := c.GetSession("current_user")
+	if u != nil {
 		c.TplName = "home/dashboard.html"
 	} else {
 		c.TplName = "home/index.html"

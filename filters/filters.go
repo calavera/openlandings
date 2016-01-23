@@ -2,12 +2,12 @@ package filters
 
 import (
 	"github.com/astaxie/beego"
-	"golang.org/x/net/context"
+	"github.com/astaxie/beego/context"
 )
 
 func filterUser(ctx *context.Context) {
-	_, ok := ctx.Input.Session("current_user")
-	if !ok {
+	u := ctx.Input.Session("current_user")
+	if u == nil {
 		ctx.Redirect(302, "/login")
 	}
 }

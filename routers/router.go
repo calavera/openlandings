@@ -3,9 +3,12 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"github.com/calavera/openlandings/controllers"
+	"github.com/calavera/openlandings/filters"
 )
 
 func init() {
+	filters.Init()
+
 	beego.Router("/", &controllers.HomeController{})
 
 	beego.Router("/login", &controllers.LoginController{}, "get:NewLogin")
