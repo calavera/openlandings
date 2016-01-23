@@ -45,7 +45,7 @@
     </div>
   </div>
   
-  <div class="ui centered eleve wide column grid">
+  <div class="ui centered eleven wide column grid">
     {{ template "partials/steps.tpl" . }}
 
     {{ template "content" . }}
