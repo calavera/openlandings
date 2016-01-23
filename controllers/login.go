@@ -7,6 +7,7 @@ import (
 
 	"github.com/astaxie/beego"
 	githubapi "github.com/calavera/openlandings/github"
+	"github.com/calavera/openlandings/models"
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/gothic"
 	"github.com/markbates/goth/providers/github"
@@ -32,6 +33,11 @@ func (c *LoginController) Callback() {
 	if err != nil {
 		beego.Error(err)
 	} else {
+		if err := models.RegisterUser(user); err != nil {
+			beego.Error(err)
+			http.Error(c.Ctx.ResponseWriter, err.Error(), 500)
+			return
+		}
 		c.SetSession("current_user", user)
 	}
 	http.Redirect(c.Ctx.ResponseWriter, c.Ctx.Request, "/", http.StatusTemporaryRedirect)
@@ -73,6 +79,7 @@ func (c *LoginController) completeAuth() (*goth.User, error) {
 	if err != nil {
 		return nil, err
 	}
+	user.NickName = user.RawData["login"].(string)
 
 	if user.Email == "" {
 		user.Email = githubapi.GetPrimaryEmail(user.AccessToken)

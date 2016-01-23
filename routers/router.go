@@ -4,10 +4,12 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/calavera/openlandings/controllers"
 	"github.com/calavera/openlandings/filters"
+	"github.com/calavera/openlandings/models"
 )
 
 func init() {
 	filters.Init()
+	models.Init()
 
 	beego.Router("/", &controllers.HomeController{})
 
