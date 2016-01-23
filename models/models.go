@@ -7,9 +7,15 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func Init() {
+func Init() error {
+	orm.RegisterDataBase("default", "postgres", os.Getenv("DB_URL"), 30)
+
 	orm.RegisterModel(new(Owner))
 	orm.RegisterModel(new(Site))
 	orm.RegisterModel(new(User))
-	orm.RegisterDataBase("default", "postgres", os.Getenv("POSTGRES_URL"), 30)
+
+	if os.Getenv("DB_AUTO") != "" {
+		return orm.RunSyncdb("default", true, true)
+	}
+	return nil
 }

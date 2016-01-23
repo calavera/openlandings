@@ -17,7 +17,7 @@ var provider goth.Provider
 
 func init() {
 	url := os.Getenv("SITE_URL") + "/auth/callback"
-	provider = github.New(os.Getenv("GITHUB_KEY"), os.Getenv("GITHUB_SECRET"), url, "user:read", "user:email")
+	provider = github.New(os.Getenv("GITHUB_KEY"), os.Getenv("GITHUB_SECRET"), url, "user:read", "user:email", "read:org")
 }
 
 type LoginController struct {

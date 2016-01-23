@@ -20,5 +20,21 @@ a {
 }
 
 .item .avatar {
-	padding: 0em 0em 0em 0.5em
+	padding-left: 0.5em;
 }
+
+.step .content {
+	padding-left: 0.6em;
+}
+
+.step .mega-octicon {
+        padding-top: 0.1em;
+}
+
+.ui.centered.grid {
+	padding-top: 5em;
+	padding-bottom: 5em;
+}
+
+.browse .extra .octicon {
+	padding-left: 0.6em;

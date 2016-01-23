@@ -25,3 +25,25 @@ func GetPrimaryEmail(accessToken string) string {
 	}
 	return email
 }
+
+func GetCurrentUser(accessToken string) (*githubapi.User, error) {
+	client := newClient(accessToken)
+	user, _, err := client.Users.Get("")
+	return user, err
+}
+
+func ListOrganizations(accessToken string) ([]*githubapi.Organization, error) {
+	client := newClient(accessToken)
+	orgs, _, err := client.Organizations.List("", nil)
+
+	var fullOrgs []*githubapi.Organization
+	for _, org := range orgs {
+		o, _, err := client.Organizations.Get(*org.Login)
+		if err != nil {
+			return nil, err
+		}
+		fullOrgs = append(fullOrgs, o)
+	}
+
+	return fullOrgs, err
+}

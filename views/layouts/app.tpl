@@ -22,6 +22,9 @@
   <link rel="stylesheet" type="text/css" href="/static/css/components/list.css">
   <link rel="stylesheet" type="text/css" href="/static/css/components/icon.css">
 
+  <link rel="stylesheet" type="text/css" href="/static/css/components/step.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/item.min.css">
+
   <link rel="stylesheet" href="/static/css/octicons.css">
   <link rel="stylesheet" href="/static/css/home.css">
   <link rel="stylesheet" href="/static/css/main.css">
@@ -30,18 +33,24 @@
 
 <!-- Page Contents -->
 <div class="pusher">
-  <div class="ui inverted vertical masthead center aligned segment">
-
+  <div class="ui inverted vertical center aligned segment">
     <div class="ui container">
       <div class="ui large secondary inverted menu">
 	<a class="item"><span class="mega-octicon octicon-home"></span></a>
         <div class="right item">
-          <a class="ui inverted button" href="/login"><span class="octicon octicon-mark-github"></span> Log in with GitHub</a>
+	  <img class="ui mini circular image" src="{{ .currentUser.AvatarURL }}">
+    	  <div class="content avatar">{{ .currentUser.NickName }}</div>
         </div>
       </div>
     </div>
-
   </div>
+  
+  <div class="ui centered eleve wide column grid">
+    {{ template "partials/steps.tpl" . }}
+
+    {{ template "content" . }}
+
+  </div> <!-- end grid -->
 
   <div class="ui inverted vertical footer segment">
     <div class="ui container">

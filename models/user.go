@@ -7,6 +7,8 @@ import (
 
 	"github.com/astaxie/beego/orm"
 	"github.com/markbates/goth"
+
+	//	"github.com/markbates/goth"
 )
 
 type User struct {
@@ -16,6 +18,7 @@ type User struct {
 	AvatarURL string
 	UUID      string
 	Email     string
+	Created   time.Time `orm:"auto_now_add;type(datetime)"`
 }
 
 func RegisterUser(user *goth.User) error {

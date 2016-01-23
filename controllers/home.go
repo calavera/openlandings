@@ -1,9 +1,6 @@
 package controllers
 
-import (
-	"github.com/astaxie/beego"
-	"github.com/markbates/goth"
-)
+import "github.com/astaxie/beego"
 
 type HomeController struct {
 	beego.Controller
@@ -12,12 +9,8 @@ type HomeController struct {
 func (c *HomeController) Get() {
 	u := c.GetSession("current_user")
 	if u != nil {
-		c.userDashboard(u.(*goth.User))
+		c.Redirect("/steps/browse", 302)
 	} else {
 		c.TplName = "home/index.html"
 	}
-}
-
-func (c *HomeController) userDashboard(user *goth.User) {
-	c.TplName = "home/dashboard.tmpl"
 }
