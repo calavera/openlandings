@@ -1,6 +1,6 @@
 <div class="row"> <!-- steps row -->
 <div class="ui tablet stackable steps">
-  <a class="step {{ .steps.Browse.Status }}">
+  <a href="/steps/browse" class="step {{ .steps.Browse.Status }}">
     <span class="mega-octicon octicon-search"></span>
     <div class="content">
       <div class="title">Browse</div>
@@ -8,7 +8,7 @@
     </div>
   </a>
 
-  <a class="step {{ .steps.Select.Status }}">
+  <a  href="/steps/select" class="step {{ .steps.Select.Status }}">
     <span class="mega-octicon octicon-repo"></span>
     <div class="content">
       <div class="title">Select</div>

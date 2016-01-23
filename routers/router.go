@@ -16,7 +16,8 @@ func init() {
 	filters.Init()
 
 	beego.Router("/", &controllers.HomeController{})
-	beego.Router("/steps/browse", &controllers.StepsController{}, "get:BrowseRepositories")
+	beego.Router("/steps/browse", &controllers.StepsController{}, "get:BrowseOrganizations")
+	beego.Router("/steps/select", &controllers.StepsController{}, "get:BrowseRepositories")
 
 	beego.Router("/login", &controllers.LoginController{}, "get:NewLogin")
 	beego.Router("/auth/callback", &controllers.LoginController{}, "get:Callback")

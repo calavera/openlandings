@@ -3,11 +3,26 @@ a {
 	color: #118AB2;
 }
 
+a.disabled {
+    cursor: auto;
+    background: #fff;
+    pointer-events: none;
+}
+
 .ui.primary.button {
 	background-color: #118AB2;
 }
+
 .ui.primary.button:hover {
 	background-color: #0F7699;
+}
+
+.ui.secondary.button {
+	background-color: #05C693;
+}
+
+.ui.secondary.button:hover {
+	background-color: #09B587;
 }
 
 .ui.inverted.menu {
@@ -29,6 +44,10 @@ a {
 
 .step .mega-octicon {
         padding-top: 0.1em;
+}
+
+.step.active .mega-octicon {
+	color: #118AB2;
 }
 
 .ui.centered.grid {
