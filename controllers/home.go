@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/markbates/goth"
 )
 
 type HomeController struct {
@@ -11,8 +12,12 @@ type HomeController struct {
 func (c *HomeController) Get() {
 	u := c.GetSession("current_user")
 	if u != nil {
-		c.TplName = "home/dashboard.html"
+		c.userDashboard(u.(*goth.User))
 	} else {
 		c.TplName = "home/index.html"
 	}
+}
+
+func (c *HomeController) userDashboard(user *goth.User) {
+	c.TplName = "home/dashboard.tmpl"
 }
