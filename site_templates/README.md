@@ -1,6 +1,6 @@
 ## Community templates
 
-This folder includes all the templates contributed by the community.
+You can find all the community templates under `static/themes`. We welcome pull request to add new templates. Read the information below about who to contribute.
 
 Each template has the same structure:
 
@@ -25,7 +25,6 @@ Each template has the same structure:
 ### What are the variables that I can use in my index.tmpl?
 
 We use Go's template engine to parse the `index.tmpl` provided. This is all the information the template has access to:
-
 
 `{{ .site.Owner.Name }}`
 `{{ .site.Owner.URL }}`
