@@ -4,8 +4,9 @@ import "time"
 
 type Site struct {
 	ID          int64
-	Name        string
+	Title       string
 	Description string
+	GitHubURL   string
 	Template    string
 	Version     string
 	Domain      string

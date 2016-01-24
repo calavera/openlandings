@@ -32,6 +32,8 @@ We use Go's template engine to parse the `index.tmpl` provided. This is all the 
 `{{ .site.Repo.Name }}`
 `{{ .site.Repo.Description }}`
 `{{ .site.Repo.URL }}`
-`{{ .site.Content.HTML }}`
-`{{ .site.Content.Markdown }}`
-`{{ .site.AnalyticsScript }}`
+`{{ .site.Content }}`
+`{{ .site.Analytics }}`
+`{{ .site.BaseURL }}`
+`{{ .site.Title }}`
+`{{ .site.Description }}`
