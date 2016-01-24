@@ -52,7 +52,10 @@ func (c *StepsController) BrowseRepositories() {
 		return
 	}
 
-	c.Data["steps"] = newSteps("", "active", "disabled", "disabled")
+	steps := newSteps("", "active", "disabled", "disabled")
+	steps.Select.Attr["owner"] = owner
+
+	c.Data["steps"] = steps
 	c.Data["currentUser"] = cu
 	c.Data["repositories"] = ownerWithRepos
 	c.Data["owner"] = u
@@ -97,10 +100,14 @@ func (c *StepsController) getPage() int {
 
 type step struct {
 	Status string
+	Attr   map[string]string
 }
 
 func newStep(status string) step {
-	return step{status}
+	return step{
+		Status: status,
+		Attr:   make(map[string]string),
+	}
 }
 
 type steps struct {

@@ -11,14 +11,11 @@ import (
 
 type Template struct {
 	ID          int64  `json:"-"`
-	Path        string `json:"-"`
-	Name        string `json:"name"`
+	Path        string `json:"-",orm:"unique"`
+	BasePath    string `json:"-",orm:"unique"`
+	Name        string `json:"name",orm:"unique"`
 	Home        string `json:"home"`
 	Description string `json:"description"`
-}
-
-func (t *Template) BasePath() string {
-	return filepath.Base(t.Path)
 }
 
 func AllTemplates() []*Template {
@@ -31,6 +28,13 @@ func AllTemplates() []*Template {
 	}
 
 	return templates
+}
+
+func GetTemplate(basePath string) (Template, error) {
+	o := orm.NewOrm()
+	t := Template{BasePath: basePath}
+	err := o.Read(&t, "base_path")
+	return t, err
 }
 
 func loadTemplates() error {
@@ -51,6 +55,7 @@ func loadTemplates() error {
 		}
 
 		template.Path = t.Path
+		template.BasePath = filepath.Base(t.Path)
 		if _, _, err := o.ReadOrCreate(&template, "name"); err != nil {
 			return err
 		}

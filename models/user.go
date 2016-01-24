@@ -6,30 +6,40 @@ import (
 	"time"
 
 	"github.com/astaxie/beego/orm"
+	"github.com/cmiceli/password-generator-go"
 	"github.com/markbates/goth"
 
 	//	"github.com/markbates/goth"
 )
 
 type User struct {
-	ID        int64
-	Name      string
-	Slug      string
-	AvatarURL string
-	UUID      string
-	Email     string
-	Created   time.Time `orm:"auto_now_add;type(datetime)"`
+	ID            int64
+	Name          string
+	AvatarURL     string
+	SitesPassword string
+	Slug          string    `orm:"unique"`
+	UUID          string    `orm:"unique"`
+	Email         string    `orm:"unique"`
+	Created       time.Time `orm:"auto_now_add;type(datetime)"`
+}
+
+func GetUser(slug string) (User, error) {
+	o := orm.NewOrm()
+	u := User{Slug: slug}
+	err := o.Read(&u, "slug")
+	return u, err
 }
 
 func RegisterUser(user *goth.User) error {
 	o := orm.NewOrm()
 
 	u := User{
-		Name:      user.Name,
-		Slug:      user.NickName,
-		AvatarURL: user.AvatarURL,
-		Email:     user.Email,
-		UUID:      timeOrderedUUID(),
+		Name:          user.Name,
+		Slug:          user.NickName,
+		AvatarURL:     user.AvatarURL,
+		Email:         user.Email,
+		SitesPassword: pwordgen.NewPassword(50),
+		UUID:          timeOrderedUUID(),
 	}
 
 	_, _, err := o.ReadOrCreate(&u, "Slug")

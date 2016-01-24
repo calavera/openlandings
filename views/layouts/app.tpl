@@ -70,5 +70,7 @@
   </div>
 </div>
 
+<script src="/static/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/5.1.0/markdown-it.min.js"></script>
 </body>
 </html>

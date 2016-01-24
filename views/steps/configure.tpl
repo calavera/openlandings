@@ -25,7 +25,11 @@
 
     <div class="row md ui tab content active">
 	<div class="twelve wide column">
-	  <form class="ui form">
+	  <form class="ui form" method="post" action="/steps/configure-site">
+	    <input type="hidden" name="template" id="template" value="">
+	    <input type="hidden" name="landing" id="landing" value="">
+	    <input type="hidden" name="nwo" value="{{ .repository.FullName }}">
+
 		<div class="ui fluid">
 		  <div class="ui action input">
 		    <input type="text" name="file" placeholder="README.md">
@@ -39,7 +43,7 @@
 		</div>
 
       	  <div class="ui fluid content">
-      		<textarea rows="100" name="content">{{ .repository.Readme }}</textarea>
+      		<textarea rows="100" id="markdown-content" name="content">{{ .repository.Readme }}</textarea>
       	  </div>
 	  </form>
 	</div>

@@ -8,7 +8,7 @@
     </div>
   </a>
 
-  <a  href="/steps/select" class="step {{ .steps.Select.Status }}">
+  <a  href="/steps/select?owner={{ .steps.Select.Attr.owner }}" class="step {{ .steps.Select.Status }}">
     <span class="mega-octicon octicon-repo"></span>
     <div class="content">
       <div class="title">Select</div>
@@ -16,7 +16,7 @@
     </div>
   </a>
 
-  <a class="step {{ .steps.Configure.Status }}">
+  <a href="/steps/configure?nwo={{ .steps.Configure.Attr.nwo }}" class="step {{ .steps.Configure.Status }}">
     <span class="mega-octicon octicon-gear"></span>
     <div class="content">
       <div class="title">Configure</div>

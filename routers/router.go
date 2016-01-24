@@ -19,6 +19,8 @@ func init() {
 	beego.Router("/steps/browse", &controllers.StepsController{}, "get:BrowseOrganizations")
 	beego.Router("/steps/select", &controllers.StepsController{}, "get:BrowseRepositories")
 	beego.Router("/steps/configure", &controllers.ConfigureController{}, "get:ConfigureRepository")
+	beego.Router("/steps/configure-site", &controllers.PublishController{}, "post:ConfigureSite")
+	beego.Router("/steps/publish", &controllers.PublishController{}, "post:PublishSite")
 
 	beego.Router("/login", &controllers.LoginController{}, "get:NewLogin")
 	beego.Router("/auth/callback", &controllers.LoginController{}, "get:Callback")

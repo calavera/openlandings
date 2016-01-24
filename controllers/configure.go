@@ -22,7 +22,11 @@ func (c *ConfigureController) ConfigureRepository() {
 		return
 	}
 
-	c.Data["steps"] = newSteps("", "", "active", "disabled")
+	steps := newSteps("", "", "active", "disabled")
+	steps.Select.Attr["owner"] = *repository.Owner.Login
+	steps.Configure.Attr["nwo"] = nwo
+
+	c.Data["steps"] = steps
 	c.Data["currentUser"] = cu
 	c.Data["repository"] = repository
 	c.Data["templates"] = models.AllTemplates()
