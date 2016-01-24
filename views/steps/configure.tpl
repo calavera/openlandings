@@ -47,7 +47,9 @@
 
     <div class="ui tab row template" data-tab="tempate">
      <div class="twelve wide column">
-	Template
+      {{ range $idx, $tmpl := .templates }}
+	{{ template "partials/template.tpl" $tmpl }}
+      {{ end }}
      </div>
     </div>
 {{ end }}

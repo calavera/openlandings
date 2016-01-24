@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/calavera/openlandings/github"
+	"github.com/calavera/openlandings/models"
 	"github.com/markbates/goth"
 )
 
@@ -24,6 +25,7 @@ func (c *ConfigureController) ConfigureRepository() {
 	c.Data["steps"] = newSteps("", "", "active", "disabled")
 	c.Data["currentUser"] = cu
 	c.Data["repository"] = repository
+	c.Data["templates"] = models.AllTemplates()
 
 	c.TplName = "steps/configure.tpl"
 }
