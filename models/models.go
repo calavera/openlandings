@@ -16,7 +16,9 @@ func Init() error {
 	orm.RegisterModel(new(Template))
 
 	if os.Getenv("DB_AUTO") != "" {
-		return orm.RunSyncdb("default", true, true)
+		if err := orm.RunSyncdb("default", true, true); err != nil {
+			return err
+		}
 	}
 
 	return loadTemplates()
