@@ -15,6 +15,7 @@ Each template has the same structure:
 ```json
 {
 	"name": "name of the template",
+	"description": "description of the template",
 	"home": "URL to the home page of this template"
 }
 ```

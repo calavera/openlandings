@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 type Owner struct {
@@ -29,6 +30,31 @@ type Site struct {
 	BaseURL     string
 	Repo        Repo
 	Owner       Owner
+}
+
+type Theme struct {
+	Path string
+}
+
+func (t Theme) JSONFile() (io.Reader, error) {
+	return os.Open(filepath.Join(t.Path, "info.json"))
+}
+
+func AllFromDisk() ([]Theme, error) {
+	themesDir := os.Getenv("THEMES_DIR")
+	if themesDir == "" {
+		return nil, fmt.Errorf("THEMES_DIR empty, unable to find the templates")
+	}
+
+	var themes []Theme
+	filepath.Walk(themesDir, func(path string, info os.FileInfo, err error) error {
+		if strings.HasSuffix(path, "/info.json") {
+			themes = append(themes, Theme{filepath.Dir(path)})
+		}
+		return nil
+	})
+
+	return themes, nil
 }
 
 func Generate(site *Site, theme string) (io.Reader, error) {
