@@ -27,9 +27,12 @@
   <link rel="stylesheet" type="text/css" href="/static/css/components/form.min.css">
   <link rel="stylesheet" type="text/css" href="/static/css/components/input.min.css">
 
+  <link rel="stylesheet" href="/static/css/tab.css">
   <link rel="stylesheet" href="/static/css/octicons.css">
   <link rel="stylesheet" href="/static/css/home.css">
   <link rel="stylesheet" href="/static/css/main.css">
+
+  <script src="/static/js/jquery-2.2.0.min.js"></script>
 </head>
 <body>
 
@@ -66,5 +69,6 @@
     </div>
   </div>
 </div>
+
 </body>
 </html>
