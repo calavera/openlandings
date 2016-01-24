@@ -56,14 +56,14 @@ func getUserAccessToken(user models.User) (string, error) {
 	})
 
 	netlifyUser := &netlifyUser{
-		User: user.Email,
-		UUID: user.UUID,
+		Email: user.Email,
+		UUID:  user.UUID,
 	}
 	opts := &netlify.RequestOptions{
-		JsonBody: netlifyUser,
+		JsonBody: map[string]interface{}{"user": netlifyUser},
 	}
 
-	resp, err := client.Request("POST", "/access_token", opts, netlifyUser)
+	resp, err := client.Request("POST", "/access_tokens", opts, netlifyUser)
 	if err != nil {
 		b, _ := ioutil.ReadAll(resp.Body)
 		return "", fmt.Errorf("error creating user %s: %v\n%s", user.Email, err, b)
@@ -76,7 +76,7 @@ func getUserAccessToken(user models.User) (string, error) {
 }
 
 type netlifyUser struct {
-	User        string `json:"user"`
+	Email       string `json:"email"`
 	UUID        string `json:"uid"`
 	AccessToken string `json:"access_token,omitempty"`
 }

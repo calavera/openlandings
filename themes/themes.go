@@ -1,7 +1,6 @@
 package themes
 
 import (
-	"archive/zip"
 	"bytes"
 	"fmt"
 	"html/template"
@@ -108,74 +107,94 @@ func generateIndex(site Site, themePath string) (*bytes.Buffer, error) {
 }
 
 func createZip(themePath string, idx []byte) (string, error) {
-	zipFile, err := ioutil.TempFile("", "openlandings-zip-")
+	deployDir, err := ioutil.TempDir("", "openlandings-zip-")
 	if err != nil {
 		return "", err
 	}
 
-	w := zip.NewWriter(zipFile)
-	f, err := w.Create("index.html")
-	if err != nil {
-		return "", err
-	}
-	if _, err := f.Write(idx); err != nil {
+	if err := ioutil.WriteFile(filepath.Join(deployDir, "index.html"), idx, 0644); err != nil {
 		return "", err
 	}
 
-	if err := writeStaticFiles(w, themePath, "css"); err != nil {
+	if err := writeStaticFiles(deployDir, themePath, "css"); err != nil {
 		return "", err
 	}
 
-	if err := writeStaticFiles(w, themePath, "fonts"); err != nil {
+	if err := writeStaticFiles(deployDir, themePath, "fonts"); err != nil {
 		return "", err
 	}
 
-	if err := writeStaticFiles(w, themePath, "images"); err != nil {
+	if err := writeStaticFiles(deployDir, themePath, "images"); err != nil {
 		return "", err
 	}
 
-	if err := writeStaticFiles(w, themePath, "js"); err != nil {
+	if err := writeStaticFiles(deployDir, themePath, "js"); err != nil {
 		return "", err
 	}
 
-	if err := w.Close(); err != nil {
-		return "", err
-	}
-
-	return zipFile.Name(), nil
+	return deployDir, nil
 }
 
-func writeStaticFiles(w *zip.Writer, themePath, dir string) error {
-	base := filepath.Join(themePath, dir)
-	_, err := os.Stat(base)
-	if err == nil {
-		if err := filepath.Walk(base, addFileToZip(base+"/", w)); err != nil {
-			return err
+// Recursively copies a directory tree, attempting to preserve permissions.
+// Source directory must exist, destination directory must *not* exist.
+func writeStaticFiles(deployPath, sourcePath, name string) error {
+	source := filepath.Join(sourcePath, name)
+	dest := filepath.Join(deployPath, name)
+
+	return copyFiles(source, dest)
+}
+
+func copyFiles(source, dest string) error {
+	fi, err := os.Stat(source)
+	if err != nil {
+		return err
+	}
+
+	err = os.MkdirAll(dest, fi.Mode())
+	if err != nil {
+		return err
+	}
+
+	entries, err := ioutil.ReadDir(source)
+	for _, entry := range entries {
+
+		sfp := filepath.Join(source, entry.Name())
+		dfp := filepath.Join(dest, entry.Name())
+		if entry.IsDir() {
+			if err := copyFiles(sfp, dfp); err != nil {
+				return err
+			}
+		} else {
+			// perform copy
+			if err := copyFile(sfp, dfp); err != nil {
+				return err
+			}
 		}
+
 	}
 	return nil
 }
 
-func addFileToZip(base string, w *zip.Writer) filepath.WalkFunc {
-	return func(path string, fi os.FileInfo, err error) error {
-		if fi.IsDir() {
-			// do not add directories
-			return nil
-		}
-		name := strings.TrimPrefix(base, path)
-		f, err := w.Create(name)
-		if err != nil {
-			return err
-		}
-
-		b, err := ioutil.ReadFile(path)
-		if err != nil {
-			return err
-		}
-
-		if _, err := f.Write(b); err != nil {
-			return err
-		}
-		return nil
+func copyFile(source string, dest string) error {
+	sf, err := os.Open(source)
+	if err != nil {
+		return err
 	}
+	defer sf.Close()
+	df, err := os.Create(dest)
+	if err != nil {
+		return err
+	}
+	defer df.Close()
+	_, err = io.Copy(df, sf)
+	if err == nil {
+		si, err := os.Stat(source)
+		if err != nil {
+			err = os.Chmod(dest, si.Mode())
+			return err
+		}
+
+	}
+
+	return nil
 }
