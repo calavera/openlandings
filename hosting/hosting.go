@@ -23,11 +23,23 @@ func Publish(user models.User, zipFilePath, siteName, domain string) error {
 	site, _, err := client.Sites.Create(&netlify.SiteAttributes{
 		Name:              siteName,
 		CustomDomain:      domain,
-		Password:          user.SitesPassword,
 		NotificationEmail: user.Email,
 	})
 	if err != nil {
 		return err
+	}
+
+	// Enable TLS
+	if domain != "" {
+		_, err := site.ProvisionCert(nil)
+		if err != nil {
+			return err
+		}
+		site.ForceSSL = true
+		_, err := site.Update()
+		if err != nil {
+			return err
+		}
 	}
 
 	// Deploy a directory
