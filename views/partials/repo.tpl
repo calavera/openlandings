@@ -7,9 +7,11 @@
       {{ end }}
     </div>
     <div class="extra">
+      <a href="/steps/configure?nwo={{ .FullName }}">
       <div class="ui right floated secondary button">
         Configure <span class="octicon octicon-repo-pull"></span>
       </div>
+      </a>
     </div>
   </div>
 </div>

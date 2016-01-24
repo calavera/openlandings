@@ -24,6 +24,8 @@
 
   <link rel="stylesheet" type="text/css" href="/static/css/components/step.min.css">
   <link rel="stylesheet" type="text/css" href="/static/css/components/item.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/form.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/input.min.css">
 
   <link rel="stylesheet" href="/static/css/octicons.css">
   <link rel="stylesheet" href="/static/css/home.css">

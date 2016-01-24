@@ -2,6 +2,8 @@ package github
 
 import (
 	"fmt"
+	"io/ioutil"
+	"strings"
 
 	"golang.org/x/oauth2"
 )
@@ -73,21 +75,10 @@ func ListOrgRepositories(accessToken, owner string, opts *githubapi.RepositoryLi
 	client := newClient(accessToken)
 
 	var orgOwner *githubapi.Organization
-	// Ensure the user belongs to the org sent, or if it's even an org.
-	orgs, _, err := client.Organizations.List("", nil)
-	if err != nil {
+	if err := checkMembership(client, owner); err != nil {
 		return nil, err
 	}
-	var member bool
-	for _, org := range orgs {
-		if owner == *org.Login {
-			member = true
-		}
-	}
-	if !member {
-		return nil, fmt.Errorf("the current user is not a member of the org %s", owner)
-	}
-	orgOwner, _, err = client.Organizations.Get(owner)
+	orgOwner, _, err := client.Organizations.Get(owner)
 	if err != nil {
 		return nil, err
 	}
@@ -105,9 +96,62 @@ func ListOrgRepositories(accessToken, owner string, opts *githubapi.RepositoryLi
 	}, nil
 }
 
+func GetRepository(accessToken, login, nwo string) (*Repository, error) {
+	parts := strings.SplitN(nwo, "/", 2)
+	if len(parts) == 1 {
+		return nil, fmt.Errorf("unable to recognize repository %s", nwo)
+	}
+
+	client := newClient(accessToken)
+	if login != parts[0] {
+		if err := checkMembership(client, parts[0]); err != nil {
+			return nil, err
+		}
+	}
+
+	repo, _, err := client.Repositories.Get(parts[0], parts[1])
+	if err != nil {
+		return nil, err
+	}
+
+	repository := &Repository{
+		Repository: repo,
+	}
+
+	content, err := client.Repositories.DownloadContents(parts[0], parts[1], "README.md", nil)
+	if err != nil {
+		// ignore the content
+		return repository, nil
+	}
+	defer content.Close()
+	b, err := ioutil.ReadAll(content)
+	if err != nil {
+		// ignore the content
+		return repository, nil
+	}
+	repository.Readme = string(b)
+
+	return repository, nil
+}
+
+func checkMembership(client *githubapi.Client, owner string) error {
+	// Ensure the user belongs to the org sent, or if it's even an org.
+	_, _, err := client.Organizations.GetOrgMembership("", owner)
+	if err != nil {
+		return fmt.Errorf("the current user is not a member of the org %s: %v", owner, err)
+	}
+
+	return nil
+}
+
 type Repositories struct {
 	Owner    *githubapi.Organization
 	List     []githubapi.Repository
 	NextPage int
 	PrevPage int
+}
+
+type Repository struct {
+	*githubapi.Repository
+	Readme string
 }

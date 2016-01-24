@@ -51,9 +51,36 @@ a.disabled {
 }
 
 .ui.centered.grid {
-	padding-top: 5em;
+	padding-top: 2em;
 	padding-bottom: 5em;
 }
 
 .browse .extra .octicon {
 	padding-left: 0.6em;
+}
+
+.ui.grid > .row.tabs {
+	padding-bottom: 0;
+	border-bottom: 1px solid #d4d4d5;
+}
+
+.row.tabs .menu {
+	border: none;
+}
+
+.row.tabs .octicon {
+        padding-right: 0.5em;
+}
+
+.md .content {
+	padding-top: 0.5em;
+}
+
+.md .right.floated {
+	float: right;
+}
+
+.md .right.floated .mega-octicon {
+	color: #e0e1e2;
+	padding-top: 0.4em;
+}
