@@ -62,7 +62,7 @@
       <div class="ui stackable inverted divided equal height stackable grid">
         <div class="three wide column">
           <div class="ui inverted link list">
-            <a href="h" class="item"><span class="octicon octicon-mark-github"></span> Project Repository</a>
+            <a href="https://github.com/calavera/openlandings" class="item"><span class="octicon octicon-mark-github"></span> Project Repository</a>
           </div>
         </div>
       </div>
