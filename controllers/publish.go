@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/astaxie/beego"
 	"github.com/calavera/openlandings/github"
@@ -77,14 +78,15 @@ func (c *PublishController) PublishSite() {
 
 	siteName := siteName(repository)
 	domain, fullURL := finalDomain(siteName, f)
-	zipFile, err := themes.Pack(repository, tmpl.Path, fullURL, f.Landing)
+	deployPath, err := themes.Pack(repository, tmpl.Path, fullURL, f.Landing)
 	if err != nil {
 		beego.Error(err)
 		c.Redirect("/404.html", 302)
 		return
 	}
+	defer os.RemoveAll(deployPath)
 
-	if err := hosting.Publish(user, zipFile, siteName, domain); err != nil {
+	if err := hosting.Publish(user, deployPath, siteName, domain); err != nil {
 		beego.Error(err)
 		c.Redirect("/404.html", 302)
 		return

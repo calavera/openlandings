@@ -97,3 +97,8 @@ a.disabled {
 .screenshot img {
     width: 250px;
 }
+
+.finish .mega-octicon {
+	font-size: 64px;
+	color: #05C693;
+}
