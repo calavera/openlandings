@@ -23,12 +23,15 @@ type Site struct {
 
 func CreateSite(user User, repository *github.Repository, template, domain string) error {
 	site := Site{
-		Title:       *repository.FullName,
-		Description: *repository.Description,
-		GitHubURL:   *repository.HTMLURL,
-		Template:    template,
-		Domain:      domain,
-		User:        &user,
+		Title:     *repository.FullName,
+		GitHubURL: *repository.HTMLURL,
+		Template:  template,
+		Domain:    domain,
+		User:      &user,
+	}
+
+	if repository.Description != nil {
+		site.Description = *repository.Description
 	}
 
 	o := orm.NewOrm()

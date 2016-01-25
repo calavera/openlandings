@@ -45,20 +45,22 @@ func (t Theme) JSONFile() (io.Reader, error) {
 
 func Pack(repository *github.Repository, themePath, fullURL, landing string) (string, error) {
 	site := Site{
-		Title:       *repository.FullName,
-		Description: *repository.Description,
-		Content:     landing,
-		BaseURL:     fullURL,
+		Title:   *repository.FullName,
+		Content: landing,
+		BaseURL: fullURL,
 		Repo: Repo{
-			Name:        *repository.FullName,
-			Description: *repository.Description,
-			URL:         *repository.HTMLURL,
+			Name: *repository.FullName,
+			URL:  *repository.HTMLURL,
 		},
 		Owner: Owner{
 			Name:      *repository.Owner.Login,
 			URL:       *repository.Owner.HTMLURL,
 			AvatarURL: *repository.Owner.AvatarURL,
 		},
+	}
+	if repository.Description != nil {
+		site.Description = *repository.Description
+		site.Repo.Description = *repository.Description
 	}
 
 	idx, err := generateIndex(site, themePath)
