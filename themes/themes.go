@@ -28,7 +28,7 @@ type Repo struct {
 type Site struct {
 	Title       string
 	Description string
-	Content     string
+	Content     template.HTML
 	Analytics   string
 	BaseURL     string
 	Repo        Repo
@@ -46,7 +46,7 @@ func (t Theme) JSONFile() (io.Reader, error) {
 func Pack(repository *github.Repository, themePath, fullURL, landing string) (string, error) {
 	site := Site{
 		Title:   *repository.FullName,
-		Content: landing,
+		Content: template.HTML(landing),
 		BaseURL: fullURL,
 		Repo: Repo{
 			Name: *repository.FullName,
