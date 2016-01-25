@@ -36,7 +36,7 @@ func Publish(user models.User, zipFilePath, siteName, domain string) error {
 			return err
 		}
 		site.ForceSSL = true
-		_, err := site.Update()
+		_, err = site.Update()
 		if err != nil {
 			return err
 		}

@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/astaxie/beego"
 	"github.com/calavera/openlandings/github"
@@ -122,5 +123,5 @@ func finalDomain(siteName string, f PublishForm) (string, string) {
 }
 
 func siteName(repository *github.Repository) string {
-	return fmt.Sprintf("%s-%s", *repository.Owner.Login, *repository.Name)
+	return strings.Replace(fmt.Sprintf("%s-%s", *repository.Owner.Login, *repository.Name), "_", "-", -1)
 }
