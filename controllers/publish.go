@@ -79,6 +79,13 @@ func (c *PublishController) PublishSite() {
 
 	siteName := siteName(repository)
 	domain, fullURL := finalDomain(siteName, f)
+
+	if err := models.CreateSite(user, repository, f.Template, fullURL); err != nil {
+		beego.Error(err)
+		c.Redirect("/404.html", 302)
+		return
+	}
+
 	deployPath, err := themes.Pack(repository, tmpl.Path, fullURL, f.Landing)
 	if err != nil {
 		beego.Error(err)
