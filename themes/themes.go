@@ -21,6 +21,7 @@ type Owner struct {
 
 type Repo struct {
 	Name        string
+	Login       string
 	Description string
 	URL         string
 }
@@ -49,8 +50,9 @@ func Pack(repository *github.Repository, themePath, fullURL, landing string) (st
 		Content: template.HTML(landing),
 		BaseURL: fullURL,
 		Repo: Repo{
-			Name: *repository.FullName,
-			URL:  *repository.HTMLURL,
+			Name:  *repository.FullName,
+			Login: *repository.Name,
+			URL:   *repository.HTMLURL,
 		},
 		Owner: Owner{
 			Name:      *repository.Owner.Login,
