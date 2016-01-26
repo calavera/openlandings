@@ -28,8 +28,9 @@ We use Go's template engine to parse the `index.tmpl` provided. This is all the 
 
 `{{ .site.Owner.Name }}`
 `{{ .site.Owner.URL }}`
-`{{ .site.Owner.Avatar }}`
+`{{ .site.Owner.AvatarURL }}`
 `{{ .site.Repo.Name }}`
+`{{ .site.Repo.Login }}`
 `{{ .site.Repo.Description }}`
 `{{ .site.Repo.URL }}`
 `{{ .site.Content }}`
