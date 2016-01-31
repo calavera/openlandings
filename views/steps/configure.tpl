@@ -51,15 +51,18 @@
 
     <div class="ui tab row template" data-tab="tempate">
      <div class="twelve wide column">
-      {{ range $idx, $tmpl := .templates }}
-	{{ template "partials/template.tpl" $tmpl }}
-      {{ end }}
+        <div class="ui divided items browse">
+          {{ range $idx, $tmpl := .templates }}
+    	    {{ template "partials/template.tpl" $tmpl }}
+          {{ end }}
+        </div>
      </div>
     </div>
 {{ end }}
 
 <script>
 $(document).ready(function() {
+
 $('.ui.menu .item.template')
   .on('click', function() {
 	$(".ui.tab.content").removeClass("active")
@@ -77,5 +80,12 @@ $('.ui.menu .item.content')
 	$(".ui.menu .item.template").removeClass("active")
   })
 ;
+
+$('.post.configure-site')
+  .on('click', function() {
+	configureSite($(this).data("template"))
+  })
+;
+
 })
 </script>
