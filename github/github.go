@@ -13,7 +13,8 @@ func newClient(accessToken string) *githubapi.Client {
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: accessToken},
 	)
-	tc := oauth2.NewClient(oauth2.NoContext, ts)
+	ctx := newTransportContext()
+	tc := oauth2.NewClient(ctx, ts)
 
 	return githubapi.NewClient(tc)
 }
