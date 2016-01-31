@@ -151,6 +151,10 @@ func writeStaticFiles(deployPath, sourcePath, name string) error {
 func copyFiles(source, dest string) error {
 	fi, err := os.Stat(source)
 	if err != nil {
+		// ignore directory if source does not exist
+		if os.IsNotExist(err) {
+			return nil
+		}
 		return err
 	}
 
