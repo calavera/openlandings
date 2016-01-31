@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"strings"
 
+	githubapi "github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 )
-import githubapi "github.com/google/go-github/github"
 
 func newClient(accessToken string) *githubapi.Client {
 	ts := oauth2.StaticTokenSource(

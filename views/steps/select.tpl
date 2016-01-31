@@ -6,19 +6,19 @@
     <div class="ui divided items browse">
       {{ template "partials/card.tpl" .owner }}
 
-      {{ range $idx, $repo := .repositories.List }}
-	{{ template "partials/repo.tpl" $repo }}
+      {{ range $idx, $site := .sites.All }}
+	{{ template "partials/repo.tpl" $site }}
       {{ end }}
 
-      <div class="ui buttons">
-	<a href="/steps/select?owner={{ .owner.Login }}&page={{ .repositories.PrevPage }}"
-	   class="{{ if eq .repositories.PrevPage 0 }}disabled{{end}}">
-           <button class="ui button {{ if eq .repositories.PrevPage 0 }}disabled{{end}}">Previous</button>
+      <div class="ui item buttons">
+	<a href="/steps/select?owner={{ .owner.Login }}&page={{ .sites.PrevPage }}"
+	   class="{{ if eq .sites.PrevPage 0 }}disabled{{end}}">
+           <button class="ui button {{ if eq .sites.PrevPage 0 }}disabled{{end}}">Previous</button>
 	</a>
         <div class="or" data-text=""></div>
-	<a href="/steps/select?owner={{ .owner.Login }}&page={{.repositories.NextPage}}"
-	   class="{{ if eq .repositories.NextPage 0 }}disabled{{end}}">
-           <button class="ui button {{ if eq .repositories.NextPage 0 }}disabled{{end}}">Next</button>
+	<a href="/steps/select?owner={{ .owner.Login }}&page={{.sites.NextPage}}"
+	   class="{{ if eq .sites.NextPage 0 }}disabled{{end}}">
+           <button class="ui button {{ if eq .sites.NextPage 0 }}disabled{{end}}">Next</button>
 	</a>
       </div>
     </div>

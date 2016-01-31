@@ -22,6 +22,8 @@ func init() {
 	beego.Router("/steps/configure-site", &controllers.PublishController{}, "post:ConfigureSite")
 	beego.Router("/steps/publish", &controllers.PublishController{}, "post:PublishSite")
 
+	beego.Router("/sites/:id", &controllers.SiteController{})
+
 	beego.Router("/login", &controllers.LoginController{}, "get:NewLogin")
 	beego.Router("/auth/callback", &controllers.LoginController{}, "get:Callback")
 }

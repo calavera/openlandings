@@ -5,6 +5,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/calavera/openlandings/github"
+	"github.com/calavera/openlandings/models"
 	githubapi "github.com/google/go-github/github"
 	"github.com/markbates/goth"
 )
@@ -52,12 +53,19 @@ func (c *StepsController) BrowseRepositories() {
 		return
 	}
 
+	sites, err := models.LoadSites(ownerWithRepos)
+	if err != nil {
+		beego.Error(err)
+		c.Redirect("/404.html", 302)
+		return
+	}
+
 	steps := newSteps("", "active", "disabled", "disabled")
 	steps.Select.Attr["owner"] = owner
 
 	c.Data["steps"] = steps
 	c.Data["currentUser"] = cu
-	c.Data["repositories"] = ownerWithRepos
+	c.Data["sites"] = sites
 	c.Data["owner"] = u
 	if ownerWithRepos.Owner != nil {
 		c.Data["owner"] = ownerWithRepos.Owner

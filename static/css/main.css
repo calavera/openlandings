@@ -102,3 +102,7 @@ a.disabled {
 	font-size: 64px;
 	color: #05C693;
 }
+
+.ui.button.delete {
+	margin-right: -.5em;
+}
