@@ -8,19 +8,19 @@
 
   <!-- Site Properties -->
   <title>Open landings</title>
-  <link rel="stylesheet" type="text/css" href="/static/css/components/reset.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/site.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/container.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/grid.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/header.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/image.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/menu.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/divider.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/dropdown.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/segment.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/button.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/list.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/site.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/container.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/grid.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/header.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/image.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/menu.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/divider.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/dropdown.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/segment.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/button.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/list.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/components/icon.min.css">
 
   <link rel="stylesheet" type="text/css" href="/static/css/components/step.min.css">
   <link rel="stylesheet" type="text/css" href="/static/css/components/item.min.css">
