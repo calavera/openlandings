@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -56,7 +55,6 @@ func SiteByOwner(siteID, userID int64) (*Site, error) {
 	o := orm.NewOrm()
 
 	err := o.QueryTable("site").Filter("ID", siteID).Filter("User__ID", userID).One(&site)
-	fmt.Println(err)
 	return &site, err
 }
 

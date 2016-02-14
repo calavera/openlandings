@@ -40,6 +40,12 @@ type Theme struct {
 	Path string
 }
 
+var globalFunctions = template.FuncMap{
+	"mod":    func(a, b int) int { return a % b },
+	"charAt": func(a string, b int) string { return string(a[b]) },
+	"runes":  func(a string) []rune { return []rune(a) },
+}
+
 func (t Theme) JSONFile() (io.Reader, error) {
 	return os.Open(filepath.Join(t.Path, "info.json"))
 }
@@ -97,7 +103,7 @@ func AllFromDisk() ([]Theme, error) {
 
 func generateIndex(site Site, themePath string) (*bytes.Buffer, error) {
 	index := filepath.Join(themePath, "index.tpl")
-	tmpl, err := template.ParseFiles(index)
+	tmpl, err := template.New("index.tpl").Funcs(globalFunctions).ParseFiles(index)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read index template at %s: %v", index, err)
 	}
