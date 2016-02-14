@@ -28,6 +28,11 @@ func (c *LoginController) NewLogin() {
 	c.getAuthToken(c.Ctx.ResponseWriter, c.Ctx.Request)
 }
 
+func (c *LoginController) Logout() {
+	c.Ctx.Input.CruSession.Delete("current_user")
+	c.Ctx.Redirect(302, "/")
+}
+
 func (c *LoginController) Callback() {
 	user, err := c.completeAuth()
 	if err != nil {

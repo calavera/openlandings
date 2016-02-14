@@ -106,3 +106,12 @@ a.disabled {
 .ui.button.delete {
 	margin-right: -.5em;
 }
+
+.divider {
+	padding-left: .3em;
+	padding-right: .3em;
+}
+
+.logout a {
+	color: rgba(255,255,255,.9);
+}

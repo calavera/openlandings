@@ -25,5 +25,6 @@ func init() {
 	beego.Router("/sites/:id", &controllers.SiteController{})
 
 	beego.Router("/login", &controllers.LoginController{}, "get:NewLogin")
+	beego.Router("/logout", &controllers.LoginController{}, "get:Logout")
 	beego.Router("/auth/callback", &controllers.LoginController{}, "get:Callback")
 }

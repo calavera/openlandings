@@ -45,6 +45,8 @@
         <div class="right item">
 	  <img class="ui mini circular image" src="{{ .currentUser.AvatarURL }}">
     	  <div class="content avatar">{{ .currentUser.NickName }}</div>
+	  <span class="divider">|</span>
+	  <div class="content logout"><a href="/logout">log out</a></div>
         </div>
       </div>
     </div>
