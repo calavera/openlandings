@@ -1,11 +1,18 @@
 package themes
 
 import (
+	"html/template"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
 )
+
+var testThemes = []string{
+	"uno",
+	"left",
+	"base16",
+}
 
 func TestAllFromDisk(t *testing.T) {
 	tmp, _ := ioutil.TempDir("", "ol-")
@@ -25,5 +32,36 @@ func TestAllFromDisk(t *testing.T) {
 	}
 	if len(th) != 1 {
 		t.Fatalf("expected 1, got %v", len(th))
+	}
+}
+
+func TestGenerateIndex(t *testing.T) {
+	base, _ := os.Getwd()
+	themesDir := filepath.Join(base, "../static/themes")
+
+	site := Site{
+		Title:       "test title",
+		Description: "test description",
+		Content:     template.HTML("test content"),
+		BaseURL:     "http://localhost:1234",
+		Repo: Repo{
+			Name:        "test repo",
+			Description: "test description",
+			Login:       "test/repo",
+			URL:         "https://github.com/test/repo",
+		},
+		Owner: Owner{
+			Name:      "test",
+			URL:       "https://github.com/test",
+			AvatarURL: "https://avatars.github.com/test",
+		},
+	}
+
+	for _, theme := range testThemes {
+		themePath := filepath.Join(themesDir, theme)
+		_, err := generateIndex(site, themePath)
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
 }
