@@ -40,7 +40,7 @@
     <div class="panel-main__inner panel-inverted">
     <div class="panel-main__content">
         <a href="{{ .site.BaseURL }}" title="link to home of {{ .site.Title }}">
-          <img src="{{ .site.BaseURL }}/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <img src="{{ .site.Owner.AvatarURL }}" class="user-image" alt="My Profile Photo">
           <h1 class="panel-cover__title panel-title">{{ .site.Title }}</h1>
         </a>
         <hr class="panel-cover__divider">

@@ -49,6 +49,11 @@
       <a href="/login"><div class="ui huge primary button">Get Started</div></a>
     </div>
 
+    <div class="slideshow">
+	<img src="/static/images/base16.png" class="slide active">
+	<img src="/static/images/left.png" class="slide">
+	<img src="/static/images/uno.png" class="slide">
+    </div>
   </div>
 
   <div class="ui vertical stripe segment">
@@ -86,6 +91,26 @@
 
   ga('create', 'UA-73416646-1', 'auto');
   ga('send', 'pageview');
+</script>
+
+<script src="/static/js/jquery-2.2.0.min.js"></script>
+<script>
+  var slides = $(".slide").length;
+  var index = 1;
+
+  function showNextSlide() {
+	return setTimeout(function() {
+		$(".slide.active").removeClass("active")
+		$(".slideshow img:eq(" + index + ")").addClass("active");
+		index += 1;
+		if (index == slides) {
+		  index = 0;
+		}
+                showNextSlide()
+	}, 3000)
+  }
+
+  showNextSlide()
 </script>
 </body>
 </html>
