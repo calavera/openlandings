@@ -43,7 +43,7 @@
 		</div>
 
       	  <div class="ui fluid content">
-      		<textarea rows="100" id="markdown-content" name="content">{{ .repository.Readme }}</textarea>
+      		<textarea rows="100" id="markdown-content" name="content">{{ .repository.Content }}</textarea>
       	  </div>
 	  </form>
 	</div>

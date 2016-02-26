@@ -119,18 +119,27 @@ func GetRepository(accessToken, login, nwo string) (*Repository, error) {
 		Repository: repo,
 	}
 
-	content, err := client.Repositories.DownloadContents(parts[0], parts[1], "README.md", nil)
+	return repository, nil
+}
+
+func GetRepositoryWithContent(accessToken, login, nwo, filePath string) (*Repository, error) {
+	repository, err := GetRepository(accessToken, login, nwo)
 	if err != nil {
-		// ignore the content
-		return repository, nil
+		return nil, err
+	}
+
+	parts := strings.SplitN(nwo, "/", 2)
+	client := newClient(accessToken)
+	content, err := client.Repositories.DownloadContents(parts[0], parts[1], filePath, nil)
+	if err != nil {
+		return nil, fmt.Errorf("unable to load file content: %v", err)
 	}
 	defer content.Close()
 	b, err := ioutil.ReadAll(content)
 	if err != nil {
-		// ignore the content
-		return repository, nil
+		return nil, fmt.Errorf("unable to load file content: %v", err)
 	}
-	repository.Readme = string(b)
+	repository.Content = string(b)
 
 	return repository, nil
 }
@@ -154,5 +163,5 @@ type Repositories struct {
 
 type Repository struct {
 	*githubapi.Repository
-	Readme string
+	Content string
 }

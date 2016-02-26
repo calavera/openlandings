@@ -15,7 +15,11 @@ func (c *ConfigureController) ConfigureRepository() {
 	cu := c.GetSession("current_user").(*goth.User)
 
 	nwo := c.GetString("nwo")
-	repository, err := github.GetRepository(cu.AccessToken, cu.NickName, nwo)
+	filePath := c.GetString("load")
+	if filePath == "" {
+		filePath = "README.md"
+	}
+	repository, err := github.GetRepositoryWithContent(cu.AccessToken, cu.NickName, nwo, filePath)
 	if err != nil {
 		beego.Error(err)
 		c.Redirect("/404.html", 302)
